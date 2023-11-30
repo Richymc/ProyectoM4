@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023 Jorge Flores, Ricardo Montoya, [Alan Coronado] (https://alancoronado.com)
+Copyright (c) 2023 Jorge Flores, Ricardo Montoya, Victor Leon, [Alan Coronado](https://alancoronado.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
