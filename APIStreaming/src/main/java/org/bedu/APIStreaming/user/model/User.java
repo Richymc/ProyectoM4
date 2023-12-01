@@ -1,10 +1,25 @@
 package org.bedu.APIStreaming.user.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column
     private String lastName;
+    @Column
     private String fistName;
+    @Column
     private String email;
 
     public User( long id, String lastName, String fistName, String email) {
