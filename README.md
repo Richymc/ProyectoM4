@@ -7,4 +7,6 @@ API de un servicio de streaming realizada como proyecto final correspondiente al
 + Jorge Flores
 + Victor Leon
 + Alan Coronado
++ Hugo Munguía
+
 
