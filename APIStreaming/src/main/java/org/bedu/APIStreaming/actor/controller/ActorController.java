@@ -1,13 +1,12 @@
 package org.bedu.APIStreaming.actor.controller;
 
+import jakarta.validation.Valid;
 import org.bedu.APIStreaming.actor.dto.ActorDTO;
+import org.bedu.APIStreaming.actor.dto.CreateActorDTO;
 import org.bedu.APIStreaming.actor.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +21,12 @@ public class ActorController {
     @ResponseStatus(HttpStatus.OK)
     public List<ActorDTO> findAll(){
         return service.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public  ActorDTO save(@Valid @RequestBody CreateActorDTO data){
+        return service.save(data);
     }
 
 }
