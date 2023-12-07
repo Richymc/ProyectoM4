@@ -23,8 +23,17 @@ public class ActorService {
         return repository.findAll().stream().map(mapper::toDTO).toList();
     }
 
+    public List<ActorDTO> findByFirstName(String firstName){
+
+    }
+
+    public List<ActorDTO> findByLastName(String lastName){
+        return repository.findByLastName(lastName).stream().map(mapper::toDTO).toList();
+    }
+
     public ActorDTO save(CreateActorDTO data){
         Actor entity = repository.save(mapper.toModel(data));
         return mapper.toDTO(entity);
     }
+
 }
