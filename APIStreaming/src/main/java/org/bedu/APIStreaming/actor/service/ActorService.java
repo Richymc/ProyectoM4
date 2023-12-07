@@ -8,6 +8,8 @@ import org.bedu.APIStreaming.actor.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ActorService {
 
@@ -16,6 +18,10 @@ public class ActorService {
 
     @Autowired
     private ActorMapper mapper;
+
+    public List<ActorDTO> findAll(){
+        return repository.findAll().stream().map(mapper::toDTO).toList();
+    }
 
     public ActorDTO save(CreateActorDTO data){
         Actor entity = repository.save(mapper.toModel(data));
