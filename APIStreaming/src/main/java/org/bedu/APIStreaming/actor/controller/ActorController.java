@@ -29,4 +29,10 @@ public class ActorController {
         return service.save(data);
     }
 
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ActorDTO update(@RequestBody ActorDTO data){
+        return service.update(data);
+    }
+
 }

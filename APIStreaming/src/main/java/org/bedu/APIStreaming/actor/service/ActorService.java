@@ -36,4 +36,8 @@ public class ActorService {
         return mapper.toDTO(entity);
     }
 
+    public ActorDTO update(ActorDTO data){
+        return mapper.toDTO(repository.save(mapper.toModel(data)));
+    }
+
 }

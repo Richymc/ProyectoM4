@@ -18,4 +18,7 @@ public interface ActorMapper {
     @Mapping(target = "id", ignore = true)
     Actor toModel(CreateActorDTO dto);
 
+    @Mapping(target = "id")
+    Actor toModel(ActorDTO dto);
+
 }
