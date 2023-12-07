@@ -1,6 +1,5 @@
 package org.bedu.APIStreaming.actor.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 

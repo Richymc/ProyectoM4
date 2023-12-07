@@ -1,8 +1,6 @@
 package org.bedu.APIStreaming.actor.controller;
 
 import org.bedu.APIStreaming.actor.dto.ActorDTO;
-import org.bedu.APIStreaming.actor.model.Actor;
-import org.bedu.APIStreaming.actor.repository.ActorRepository;
 import org.bedu.APIStreaming.actor.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
