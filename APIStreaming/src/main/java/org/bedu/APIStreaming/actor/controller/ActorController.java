@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("actors")
+@RequestMapping("/actors")
 public class ActorController {
 
     @Autowired
@@ -21,6 +22,15 @@ public class ActorController {
     @ResponseStatus(HttpStatus.OK)
     public List<ActorDTO> findAll(){
         return service.findAll();
+    }
+
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    public ArrayList<ActorDTO> findByName(@RequestParam String name){
+        ArrayList<ActorDTO> actors = new ArrayList<ActorDTO>();
+        actors.addAll(service.findByFirstName(name));
+        actors.addAll(service.findByLastName(name));
+        return actors;
     }
 
     @PostMapping
