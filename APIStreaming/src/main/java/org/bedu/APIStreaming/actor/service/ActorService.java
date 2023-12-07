@@ -40,4 +40,8 @@ public class ActorService {
         return mapper.toDTO(repository.save(mapper.toModel(data)));
     }
 
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
+
 }

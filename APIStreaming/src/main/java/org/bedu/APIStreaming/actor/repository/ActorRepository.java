@@ -13,4 +13,6 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
 
     public List<Actor> findByFirstName(String firstName);
 
+
+
 }

@@ -46,5 +46,10 @@ public class ActorController {
     }
 
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteById(@PathVariable("id") Long id){
+        service.deleteById(id);
+    }
 
 }
