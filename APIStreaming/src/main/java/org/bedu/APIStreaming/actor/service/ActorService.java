@@ -24,7 +24,7 @@ public class ActorService {
     }
 
     public List<ActorDTO> findByFirstName(String firstName){
-
+        return repository.findByFirstName(firstName).stream().map(mapper::toDTO).toList();
     }
 
     public List<ActorDTO> findByLastName(String lastName){
