@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DirectorRepository extends JpaRepository {
+public interface DirectorRepository extends JpaRepository<Director, Long> {
 
     public List<Director> findByLastName(String lastName);
 
