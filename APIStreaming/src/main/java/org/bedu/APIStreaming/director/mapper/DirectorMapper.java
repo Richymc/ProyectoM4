@@ -1,5 +1,7 @@
 package org.bedu.APIStreaming.director.mapper;
 
+import org.bedu.APIStreaming.director.dto.CreateDirectorDTO;
+import org.bedu.APIStreaming.director.dto.DirectorDTO;
 import org.bedu.APIStreaming.director.model.Director;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
