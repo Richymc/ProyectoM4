@@ -23,6 +23,14 @@ public class DirectorService {
         return repository.findAll().stream().map(mapper::toDTO).toList();
     }
 
+    public List<DirectorDTO> findByFirstName(String firstName){
+        return repository.findByFirstName(firstName).stream().map(mapper::toDTO).toList();
+    }
+
+    public List<DirectorDTO> findByLastName(String lastName){
+        return repository.findByLastName(lastName).stream().map(mapper::toDTO).toList();
+    }
+
     public DirectorDTO save(CreateDirectorDTO data){
         Director entity = repository.save(mapper.toModel(data));
         return mapper.toDTO(entity);
