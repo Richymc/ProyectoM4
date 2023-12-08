@@ -30,4 +30,8 @@ public class DirectorService {
         return mapper.toDTO(entity);
     }
 
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
+
 }
