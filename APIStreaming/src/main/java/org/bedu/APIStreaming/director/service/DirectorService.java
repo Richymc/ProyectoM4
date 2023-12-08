@@ -16,10 +16,8 @@ public class DirectorService {
     @Autowired
     private DirectorRepository repository;
 
-
     @Autowired
     private DirectorMapper mapper;
-
 
     public List<DirectorDTO> findAll(){
         return repository.findAll().stream().map(mapper::toDTO).toList();
@@ -28,6 +26,10 @@ public class DirectorService {
     public DirectorDTO save(CreateDirectorDTO data){
         Director entity = repository.save(mapper.toModel(data));
         return mapper.toDTO(entity);
+    }
+
+    public DirectorDTO update(DirectorDTO data){
+        return mapper.toDTO(repository.save(mapper.toModel(data)));
     }
 
     public void deleteById(Long id){
