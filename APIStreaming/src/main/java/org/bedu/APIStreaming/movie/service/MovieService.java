@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public class MovieService {
     
     @Autowired
-    private MovieRepository respository;
+    private MovieRepository repository;
 
-    
 }
