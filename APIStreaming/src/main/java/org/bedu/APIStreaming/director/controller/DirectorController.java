@@ -1,11 +1,15 @@
 package org.bedu.APIStreaming.director.controller;
 
+import jakarta.validation.Valid;
+import org.bedu.APIStreaming.director.dto.CreateDirectorDTO;
 import org.bedu.APIStreaming.director.dto.DirectorDTO;
+import org.bedu.APIStreaming.director.model.Director;
 import org.bedu.APIStreaming.director.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,21 @@ public class DirectorController {
     @ResponseStatus(HttpStatus.OK)
     public List<DirectorDTO> findAll(){
         return service.findAll();
+    }
+
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DirectorDTO> findByName(@RequestParam String name){
+        List<DirectorDTO> directors = new ArrayList<DirectorDTO>();
+        directors.addAll(service.findByFirstName(name));
+        directors.addAll(service.findByLastName(name));
+        return directors;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public DirectorDTO save(@Valid @RequestBody CreateDirectorDTO data){
+        return service.save(data);
     }
 
     @PutMapping
