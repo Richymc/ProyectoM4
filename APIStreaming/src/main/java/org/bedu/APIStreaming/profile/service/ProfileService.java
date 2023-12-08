@@ -22,4 +22,7 @@ public class ProfileService {
         return mapper.toDTO(entity);
     }
 
+    public ProfileDTO update(ProfileDTO data){
+        return mapper.toDTO(repository.save(mapper.toModel(data)));
+    }
 }
