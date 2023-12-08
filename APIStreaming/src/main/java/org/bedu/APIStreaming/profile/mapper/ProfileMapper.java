@@ -1,5 +1,6 @@
 package org.bedu.APIStreaming.profile.mapper;
 
+import org.bedu.APIStreaming.profile.dto.CreateProfileDTO;
 import org.bedu.APIStreaming.profile.dto.ProfileDTO;
 import org.bedu.APIStreaming.profile.model.Profile;
 import org.mapstruct.InjectionStrategy;
@@ -16,6 +17,9 @@ public interface ProfileMapper {
     List<ProfileDTO> toDTO(List<Profile> model);
 
     @Mapping(target = "id", ignore = true)
+    Profile toModel(CreateProfileDTO dto);
+
+    @Mapping(target = "id")
     Profile toModel(ProfileDTO dto);
 
 }
