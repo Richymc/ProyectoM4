@@ -1,5 +1,10 @@
 package org.bedu.APIStreaming.movie.repository;
 
-public class MovieRepository {
-    
+import org.bedu.APIStreaming.movie.model.Movie;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface MovieRepository extends JpaRepository<Movie, Long>{
+
 }
