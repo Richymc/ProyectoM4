@@ -25,4 +25,8 @@ public class ProfileService {
     public ProfileDTO update(ProfileDTO data){
         return mapper.toDTO(repository.save(mapper.toModel(data)));
     }
+
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
 }
