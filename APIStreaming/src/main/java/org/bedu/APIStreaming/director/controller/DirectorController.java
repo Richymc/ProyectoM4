@@ -3,7 +3,6 @@ package org.bedu.APIStreaming.director.controller;
 import jakarta.validation.Valid;
 import org.bedu.APIStreaming.director.dto.CreateDirectorDTO;
 import org.bedu.APIStreaming.director.dto.DirectorDTO;
-import org.bedu.APIStreaming.director.model.Director;
 import org.bedu.APIStreaming.director.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
