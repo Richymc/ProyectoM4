@@ -19,13 +19,13 @@ public class Movie {
     @GeneratedValue( strategy = GenerationType.AUTO)
     private int id;
 
-    @Column ( length = 150, nullable = false)
+    @Column ( length = 100, nullable = false)
     private String nameMovie;
 
     @Column
     private Long duration;
 
-    @Column
+    @Column (length = 200)
     private String description;
 
     @Column
