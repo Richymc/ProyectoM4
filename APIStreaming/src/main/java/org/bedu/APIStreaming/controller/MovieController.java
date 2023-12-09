@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Endpoints de Películas", description = "CRUD de Películas")
 @RestController
 @RequestMapping("movies")
 public class MovieController {
@@ -18,6 +22,7 @@ public class MovieController {
     @Autowired
     private MovieService service;
 
+    @Operation(summary = "Obtiene una lista con todas las peliculas")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<MovieDTO> findAll(){
