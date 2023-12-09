@@ -23,10 +23,25 @@ public class UserService {
         return repository.findAll().stream().map(mapper::toDTO).toList();
     }
 
+    public List<UserDTO> findByFirstName(String firstName) {
+        return repository.findByFirstName(firstName).stream().map(mapper::toDTO).toList();
+    }
+
+    public List<UserDTO> findByLastName(String lastName){
+        return repository.findByLastName(lastName).stream().map(mapper::toDTO).toList();
+    }
+
     public UserDTO save(CreateUserDTO data) {
         User entity = repository.save(mapper.toModel(data));
         return mapper.toDTO(entity);
     }
 
+    public UserDTO update(UserDTO data){
+        return mapper.toDTO(repository.save(mapper.toModel(data)));
+    }
+
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
 
 }

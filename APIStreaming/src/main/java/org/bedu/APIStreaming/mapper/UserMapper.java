@@ -13,9 +13,13 @@ import java.util.List;
 public interface UserMapper {
 
     UserDTO toDTO(User model);
+
     List<UserDTO> toDTO(List<User> model);
 
     @Mapping(target = "id", ignore = true)
     User toModel(CreateUserDTO dto);
+
+    @Mapping(target = "id")
+    User toModel(UserDTO dto);
 
 }
