@@ -26,4 +26,8 @@ public class MovieService {
         Movie entity = repository.save(mapper.toModel(data));
         return mapper.toDTO(entity);
     }
+
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
 }

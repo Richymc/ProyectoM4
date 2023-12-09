@@ -1,5 +1,7 @@
 package org.bedu.APIStreaming.mapper;
 
+import java.util.List;
+
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.model.Movie;
@@ -12,6 +14,11 @@ public interface MovieMapper {
     
     MovieDTO toDTO(Movie model);
 
+    List<MovieDTO> toDTO(List<Movie> model);
+
     @Mapping(target = "id", ignore = true)
     Movie toModel(CreateMovieDTO dto);
+
+    @Mapping(target = "id")
+    Movie toModel(MovieDTO dto);
 }
