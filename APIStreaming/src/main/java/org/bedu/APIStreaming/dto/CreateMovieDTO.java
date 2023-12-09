@@ -1,7 +1,9 @@
 package org.bedu.APIStreaming.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
+@Data
 public class CreateMovieDTO {
     
     @NotBlank (message = "Please provide the name of the movie.")
