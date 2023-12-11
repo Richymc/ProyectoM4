@@ -29,7 +29,7 @@ public class UserController {
         return service.findAll();
     }
 
-    @Operation(summary = "Crea un nuevo Usuario")
+    @Operation(summary = "Aplica un filtro y regresa una lista con todos las concidencias de los Usuarios")
     @GetMapping("/name")
     @ResponseStatus(HttpStatus.OK)
     public ArrayList<UserDTO> findByName(@RequestParam String name){
@@ -39,18 +39,21 @@ public class UserController {
         return users;
     }
 
+    @Operation(summary = "Crea un nuevo Usuario")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO save(@Valid @RequestBody CreateUserDTO data) {
         return service.save(data);
     }
 
+    @Operation(summary = "Actualiza la información de un Usuario")
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDTO update(@RequestBody UserDTO data){
         return service.update(data);
     }
 
+    @Operation(summary = "Elimina a un Usuario")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){

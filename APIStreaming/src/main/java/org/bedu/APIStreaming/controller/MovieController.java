@@ -36,12 +36,14 @@ public class MovieController {
         return service.findAll();
     }
 
+    @Operation(summary = "Crea una nueva película")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MovieDTO save(@Valid @RequestBody CreateMovieDTO data){
         return service.save(data);
     }
 
+    @Operation(summary = "Elimina una pelicula")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id){
