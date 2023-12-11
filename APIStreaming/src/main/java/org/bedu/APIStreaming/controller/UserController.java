@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Endpoints de Usuarios", description = "CRUD de Usuarios")
@@ -29,10 +30,30 @@ public class UserController {
     }
 
     @Operation(summary = "Crea un nuevo Usuario")
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    public ArrayList<UserDTO> findByName(@RequestParam String name){
+        ArrayList users = new ArrayList<UserDTO>();
+        users.addAll(service.findByFirstName(name));
+        users.addAll(service.findByLastName(name));
+        return users;
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDTO save(@Valid @RequestBody CreateUserDTO data) {
         return service.save(data);
     }
 
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public UserDTO update(@RequestBody UserDTO data){
+        return service.update(data);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable Long id){
+        service.deleteById(id);
+    }
 }

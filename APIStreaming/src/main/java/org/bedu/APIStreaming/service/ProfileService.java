@@ -8,6 +8,8 @@ import org.bedu.APIStreaming.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfileService {
 
@@ -16,6 +18,10 @@ public class ProfileService {
 
     @Autowired
     private ProfileMapper mapper;
+
+    public List<ProfileDTO> findAll(){
+        return repository.findAll().stream().map(mapper::toDTO).toList();
+    }
 
     public ProfileDTO save(CreateProfileDTO data){
         Profile entity = repository.save(mapper.toModel(data));
