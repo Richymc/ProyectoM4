@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
 
+@Tag(name = "Endpoints de Películas", description = "CRUD de Películas")
 @RestController
 @RequestMapping("movies")
 public class MovieController {
@@ -25,18 +29,21 @@ public class MovieController {
     @Autowired
     private MovieService service;
 
+    @Operation(summary = "Obtiene una lista con todas las peliculas")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<MovieDTO> findAll(){
         return service.findAll();
     }
 
+    @Operation(summary = "Crea una nueva película")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MovieDTO save(@Valid @RequestBody CreateMovieDTO data){
         return service.save(data);
     }
 
+    @Operation(summary = "Elimina una pelicula")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id){
