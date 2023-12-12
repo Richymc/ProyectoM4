@@ -7,7 +7,7 @@ import lombok.Data;
 public class UpdateMovieDTO {
     
     @Schema(description = "Actualizacion del nombre de la pelicula")
-    private String nameMovie;
+    private String name;
 
     @Schema(description = "Actualizacion de la duracion de la pelicula")
     private long duration;

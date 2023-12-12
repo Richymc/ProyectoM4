@@ -9,7 +9,7 @@ public class CreateMovieDTO {
     
     @Schema(description = "Nombre de la Película", example = "Iron Man")
     @NotBlank (message = "Please provide the name of the movie.")
-    private String nameMovie;
+    private String name;
 
     @Schema(description = "Duracion de la pelicula", example = "120")
     @NotBlank(message = "Please provide the duration of the movie.")

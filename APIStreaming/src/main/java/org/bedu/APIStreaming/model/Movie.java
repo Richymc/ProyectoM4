@@ -16,11 +16,11 @@ import lombok.Setter;
 public class Movie {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column ( length = 100, nullable = false)
-    private String nameMovie;
+    private String name;
 
     @Column
     private long duration;

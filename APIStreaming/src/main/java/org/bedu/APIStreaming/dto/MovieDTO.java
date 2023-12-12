@@ -11,7 +11,6 @@ public class MovieDTO {
 
     @Schema(description = "Nombre de la Película", example = "Iron Man")
     private String name;
-    private String nameMovie;
     private long duration;
     private String description;
     private String genre;
