@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
+import org.bedu.APIStreaming.dto.UpdateMovieDTO;
 import org.bedu.APIStreaming.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -41,6 +43,13 @@ public class MovieController {
     @ResponseStatus(HttpStatus.CREATED)
     public MovieDTO save(@Valid @RequestBody CreateMovieDTO data){
         return service.save(data);
+    }
+
+    @Operation(summary = "Actualiza una pelicula")
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable long id, @Valid @RequestBody UpdateMovieDTO data){
+        service.update(data);
     }
 
     @Operation(summary = "Elimina una pelicula")

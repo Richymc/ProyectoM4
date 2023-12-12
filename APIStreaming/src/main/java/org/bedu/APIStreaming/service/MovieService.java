@@ -2,10 +2,13 @@ package org.bedu.APIStreaming.service;
 
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
+import org.bedu.APIStreaming.dto.UpdateMovieDTO;
 import org.bedu.APIStreaming.mapper.MovieMapper;
 import org.bedu.APIStreaming.model.Movie;
 import org.bedu.APIStreaming.repository.MovieRepository;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,16 @@ public class MovieService {
     public MovieDTO save(CreateMovieDTO data){
         Movie entity = repository.save(mapper.toModel(data));
         return mapper.toDTO(entity);
+    }
+
+    public void update(long id, UpdateMovieDTO data){
+        Optional<Movie> model = repository.findById(id);
+
+        if(model.isEmpty()){
+
+        }
+
+        
     }
 
     public void deleteById(Long id){

@@ -13,7 +13,7 @@ public class CreateMovieDTO {
 
     @Schema(description = "Duracion de la pelicula", example = "120")
     @NotBlank(message = "Please provide the duration of the movie.")
-    private Long duration;
+    private long duration;
 
     @Schema(description = "Descripcion de la pelicula", example = "Es una película de superhéroes de 2008. Es la primera entrega del Universo cinematográfico de Marvel")
     @NotBlank (message = "Please provide the description of the movie.")
