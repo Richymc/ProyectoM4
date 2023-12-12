@@ -32,13 +32,17 @@ public class MovieService {
     }
 
     public void update(long id, UpdateMovieDTO data) throws MovieNotFoundException{
-        Optional<Movie> model = repository.findById(id);
+        Optional<Movie> result = repository.findById(id);
 
-        if(model.isEmpty()){
+        if(result.isEmpty()){
             throw new MovieNotFoundException(id);
         }
 
+        Movie model = result.get();
 
+        mapper.update(model, data);
+
+        repository.save(model);
     }
 
     public void deleteById(Long id){
