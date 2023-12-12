@@ -2,6 +2,8 @@ package org.bedu.APIStreaming.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
@@ -11,15 +13,16 @@ public class CreateMovieDTO {
     @NotBlank (message = "Please provide the name of the movie.")
     private String name;
 
-    @Schema(description = "Duracion de la pelicula", example = "120")
-    @NotBlank(message = "Please provide the duration of the movie.")
+    @Schema(description = "Duración de la película", example = "120")
+    @NotNull
+    @Positive
     private long duration;
 
-    @Schema(description = "Descripcion de la pelicula", example = "Es una película de superhéroes de 2008. Es la primera entrega del Universo cinematográfico de Marvel")
+    @Schema(description = "Descripción de la película", example = "Es una película de superhéroes de 2008. Es la primera entrega del Universo cinematográfico de Marvel")
     @NotBlank (message = "Please provide the description of the movie.")
     private String description;
     
-    @Schema(description = "Genero de la Película", example = "Acción")
+    @Schema(description = "Género de la película", example = "Acción")
     @NotBlank (message = "Please provide the genre of the movie.")
     private String genre;
 }

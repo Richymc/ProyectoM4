@@ -2,8 +2,11 @@ package org.bedu.APIStreaming.controller;
 
 import jakarta.validation.Valid;
 import org.bedu.APIStreaming.dto.ActorDTO;
+import org.bedu.APIStreaming.dto.AddMovieDTO;
 import org.bedu.APIStreaming.dto.CreateActorDTO;
+import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.service.ActorService;
+import org.bedu.APIStreaming.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,9 @@ public class ActorController {
 
     @Autowired
     private ActorService service;
+
+    @Autowired
+    private PerformanceService performanceService;
 
     @Operation(summary = "Obtiene una lista con todos los Actores")
     @GetMapping
@@ -61,4 +67,18 @@ public class ActorController {
         service.deleteById(id);
     }
 
+
+    @Operation(summary = "Asocia una pelicula a un actor")
+    @PostMapping("{actorId}/movies")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addMovie(@PathVariable long actorId, @RequestBody AddMovieDTO data) {
+        performanceService.addMovie(actorId, data.getMovieId());
+    }
+
+    @Operation(summary = "Obtiene las peliculas de un actor determinado")
+    @GetMapping("{actorId}/movies")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MovieDTO> findMoviesByActor(@PathVariable long actorId) {
+        return performanceService.findMoviesByActor(actorId);
+    }
 }
