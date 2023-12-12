@@ -23,7 +23,7 @@ public class Movie {
     private String nameMovie;
 
     @Column
-    private Long duration;
+    private long duration;
 
     @Column (length = 200)
     private String description;
