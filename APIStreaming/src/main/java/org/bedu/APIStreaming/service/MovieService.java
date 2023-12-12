@@ -3,6 +3,7 @@ package org.bedu.APIStreaming.service;
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.dto.UpdateMovieDTO;
+import org.bedu.APIStreaming.exception.MovieNotFoundException;
 import org.bedu.APIStreaming.mapper.MovieMapper;
 import org.bedu.APIStreaming.model.Movie;
 import org.bedu.APIStreaming.repository.MovieRepository;
@@ -30,14 +31,14 @@ public class MovieService {
         return mapper.toDTO(entity);
     }
 
-    public void update(long id, UpdateMovieDTO data){
+    public void update(long id, UpdateMovieDTO data) throws MovieNotFoundException{
         Optional<Movie> model = repository.findById(id);
 
         if(model.isEmpty()){
-
+            throw new MovieNotFoundException(id);
         }
 
-        
+
     }
 
     public void deleteById(Long id){

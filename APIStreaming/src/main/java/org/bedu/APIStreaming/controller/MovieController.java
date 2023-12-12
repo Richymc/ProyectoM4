@@ -5,6 +5,7 @@ import java.util.List;
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.dto.UpdateMovieDTO;
+import org.bedu.APIStreaming.exception.MovieNotFoundException;
 import org.bedu.APIStreaming.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,8 +49,8 @@ public class MovieController {
     @Operation(summary = "Actualiza una pelicula")
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable long id, @Valid @RequestBody UpdateMovieDTO data){
-        service.update(data);
+    public void update(@PathVariable long id, @Valid @RequestBody UpdateMovieDTO data) throws MovieNotFoundException{
+        service.update(id, data);
     }
 
     @Operation(summary = "Elimina una pelicula")
