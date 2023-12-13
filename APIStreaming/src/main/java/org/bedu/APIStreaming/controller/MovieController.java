@@ -2,11 +2,14 @@ package org.bedu.APIStreaming.controller;
 
 import java.util.List;
 
+import org.bedu.APIStreaming.dto.ActorDTO;
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.dto.UpdateMovieDTO;
 import org.bedu.APIStreaming.exception.MovieNotFoundException;
+import org.bedu.APIStreaming.service.DirectingService;
 import org.bedu.APIStreaming.service.MovieService;
+import org.bedu.APIStreaming.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +34,12 @@ public class MovieController {
     
     @Autowired
     private MovieService service;
+
+    @Autowired
+    private DirectingService directingService;
+
+    @Autowired
+    private PerformanceService performanceService;
 
     @Operation(summary = "Obtiene una lista con todas las peliculas")
     @GetMapping
@@ -58,6 +67,14 @@ public class MovieController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable Long id){
         service.deleteById(id);
+    }
+
+
+    @Operation(summary = "Obtiene los actores de una película determinada")
+    @GetMapping("{movieId}/actors")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ActorDTO> findActorsByMovie(@PathVariable long movieId) {
+        return performanceService.findActorsByMovie(movieId);
     }
 
 }

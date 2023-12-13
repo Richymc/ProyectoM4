@@ -1,5 +1,6 @@
 package org.bedu.APIStreaming.service;
 
+import org.bedu.APIStreaming.dto.ActorDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.mapper.MovieMapper;
 import org.bedu.APIStreaming.mapper.PerformanceMapper;
@@ -26,6 +27,10 @@ public class PerformanceService {
     }
 
     public List<MovieDTO> findMoviesByActor(long actorId) {
-        return movieMapper.toDTO(repository.findMoviessByActor(actorId));
+        return movieMapper.toDTO(repository.findMoviesByActor(actorId));
+    }
+
+    public List<ActorDTO> findActorsByMovie(long movieId) {
+        return movieMapper.toDTOActor(repository.findActorsByMovie(movieId));
     }
 }

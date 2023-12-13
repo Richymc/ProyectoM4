@@ -1,9 +1,13 @@
 package org.bedu.APIStreaming.controller;
 
 import jakarta.validation.Valid;
+import org.bedu.APIStreaming.dto.AddMovieDTO;
 import org.bedu.APIStreaming.dto.CreateDirectorDTO;
 import org.bedu.APIStreaming.dto.DirectorDTO;
+import org.bedu.APIStreaming.dto.MovieDTO;
+import org.bedu.APIStreaming.service.DirectingService;
 import org.bedu.APIStreaming.service.DirectorService;
+import org.bedu.APIStreaming.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +25,9 @@ public class DirectorController {
 
     @Autowired
     DirectorService service;
+
+    @Autowired
+    private DirectingService directingService;
 
     @Operation(summary = "Obtiene una lista con todos los Directores")
     @GetMapping
@@ -60,4 +67,17 @@ public class DirectorController {
         service.deleteById(id);
     }
 
+    @Operation(summary = "Asocia una pelicula a un director")
+    @PostMapping("{directorId}/movies")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addMovie(@PathVariable long directorId, @RequestBody AddMovieDTO data) {
+        directingService.addMovie(directorId, data.getMovieId());
+    }
+
+    @Operation(summary = "Obtiene las peliculas de un director determinado")
+    @GetMapping("{directorId}/movies")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MovieDTO> findMoviesByDirector(@PathVariable long directorId) {
+        return directingService.findMoviesByDirector(directorId);
+    }
 }
