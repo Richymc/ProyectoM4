@@ -8,9 +8,10 @@ import lombok.Data;
 public class CreateDirectorDTO {
 
     @Schema(description = "Nombre del Director", example = "Jon")
+    @NotBlank(message = "Por favor ingresar el nombre del director.")
     private String firstName;
 
     @Schema(description = "Apellido del Director", example = "Favreau")
-    @NotBlank(message = "Please provide the director last name")
+    @NotBlank(message = "Por favor ingresar el apellido del director.")
     private String lastName;
 }

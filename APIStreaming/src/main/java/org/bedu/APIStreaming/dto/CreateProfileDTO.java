@@ -8,7 +8,7 @@ import lombok.Data;
 public class CreateProfileDTO {
 
     @Schema(description = "Nombre del perfil", example = "Esteban")
-    @NotBlank(message = "Please provide your name")
+    @NotBlank(message = "Por favor ingresar el nombre del perfil")
     private String name;
 
 }

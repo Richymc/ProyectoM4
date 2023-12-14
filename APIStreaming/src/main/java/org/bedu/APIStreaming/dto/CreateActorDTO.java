@@ -8,10 +8,11 @@ import lombok.Data;
 public class CreateActorDTO {
 
     @Schema(description = "Nombre del Actor", example = "Robert")
+    @NotBlank(message = "Por favor ingresar el nombre del actor")
     private String firstName;
 
     @Schema(description = "Apellido del Actor", example = "Downey Jr")
-    @NotBlank(message = "Please provide the actor last name")
+    @NotBlank(message = "Por favor ingresar el apellido del actor")
     private String lastName;
 
 }

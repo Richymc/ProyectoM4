@@ -9,15 +9,16 @@ import lombok.Data;
 public class CreateUserDTO {
 
     @Schema(description = "Tu Nombre", example = "Esteban")
-    @NotBlank(message = "Please provide your first name")
+    @NotBlank(message = "Por favor ingresar el nombre del usuario.")
     private String firstName;
 
     @Schema(description = "Tu Apellido", example = "Lopez")
-    @NotBlank(message = "Please provide your last name")
+    @NotBlank(message = "Por favor ingresar el apellido del usuario.")
     private String lastName;
 
     @Schema(description = "Tu Correo electronico", example = "thunder@gmail.com")
-    @Email(message = "A valid email is required")
+    @NotBlank(message = "Por favor ingresar el correo electrónico del usuario.")
+    @Email(message = "Favor de ingresar un correo electrónico válido.")
     private String email;
 
 }

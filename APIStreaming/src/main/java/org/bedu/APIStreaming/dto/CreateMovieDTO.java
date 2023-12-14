@@ -10,7 +10,7 @@ import lombok.Data;
 public class CreateMovieDTO {
     
     @Schema(description = "Nombre de la Película", example = "Iron Man")
-    @NotBlank (message = "Please provide the name of the movie.")
+    @NotBlank (message = "Por favor ingresar el nombre de la película")
     private String name;
 
     @Schema(description = "Duración de la película", example = "120")
@@ -19,10 +19,10 @@ public class CreateMovieDTO {
     private long duration;
 
     @Schema(description = "Descripción de la película", example = "Es una película de superhéroes de 2008. Es la primera entrega del Universo cinematográfico de Marvel")
-    @NotBlank (message = "Please provide the description of the movie.")
+    @NotBlank (message = "Por favor ingrese una descripción de la película")
     private String description;
     
     @Schema(description = "Género de la película", example = "Acción")
-    @NotBlank (message = "Please provide the genre of the movie.")
+    @NotBlank (message = "Por favor ingrese un género de película")
     private String genre;
 }
