@@ -112,6 +112,12 @@ class MovieControllerTest {
         controller.update(99, dto);
 
         verify(service, times(1)).update(99, dto);
+    }
 
+    @Test
+    @DisplayName("Controller should delete a movie")
+    void deleteByIdTest(){
+        controller.deleteById((long) 44);
+        verify(service, times(1)).deleteById((long) 44);
     }
 }
