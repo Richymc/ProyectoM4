@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
@@ -11,6 +13,8 @@ import java.util.List;
 
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
+import org.bedu.APIStreaming.dto.UpdateMovieDTO;
+import org.bedu.APIStreaming.exception.MovieNotFoundException;
 import org.bedu.APIStreaming.service.MovieService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,4 +98,20 @@ class MovieControllerTest {
         assertEquals(movie.getGenre(), result.getGenre());
     }
 
+    @Test
+    @DisplayName("Controller should update a movie")
+    void updateTest() throws MovieNotFoundException{
+        
+        UpdateMovieDTO dto = new UpdateMovieDTO();
+
+        dto.setName("Guardianes de la galaxia vol 3");
+        dto.setDuration(149);
+        dto.setDescription("Aunque sigue afectado por la pérdida de Gamora, Peter Quill debe reunir a su equipo para defender el universo de una nueva amenaza o, en caso de fracasar, será el final de los Guardianes.");
+        dto.setGenre("Accion, Ciencia Ficcion");
+        
+        controller.update(99, dto);
+
+        verify(service, times(1)).update(99, dto);
+
+    }
 }
