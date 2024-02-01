@@ -3,11 +3,13 @@ package org.bedu.APIStreaming.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.service.MovieService;
 import org.junit.jupiter.api.DisplayName;
@@ -60,6 +62,36 @@ class MovieControllerTest {
         assertEquals(movie.getDuration(),result.get(0).getDuration());
         assertEquals(movie.getDescription(),result.get(0).getDescription());
         assertEquals(movie.getGenre(), result.get(0).getGenre());
+    }
+
+    @Test
+    @DisplayName("Controller should save a movie")
+    void saveTest(){
+        CreateMovieDTO dto = new CreateMovieDTO();
+
+        dto.setName("Elementos");
+        dto.setDuration(102);
+        dto.setDescription("En una ciudad en la que los elementos de fuego, agua, tierra y aire viven en distritos separados, una chica de fuego y un chico de agua descubren que, aunque la sociedad les diga lo contrario, tienen muchas cosas en común.");
+        dto.setGenre("Romance,Fantasia");
+
+        MovieDTO movie = new MovieDTO();
+
+        movie.setId(69);
+        movie.setName(dto.getName());
+        movie.setDuration(dto.getDuration());
+        movie.setDescription(dto.getDescription());
+        movie.setGenre(dto.getGenre());
+
+        when(service.save(any(CreateMovieDTO.class))).thenReturn(movie);
+
+        MovieDTO result = controller.save(dto);
+
+        assertNotNull(result);
+        assertEquals(movie.getId(), result.getId());
+        assertEquals(movie.getName(), result.getName());
+        assertEquals(movie.getDuration(), result.getDuration());
+        assertEquals(movie.getDescription(), result.getDescription());
+        assertEquals(movie.getGenre(), result.getGenre());
     }
 
 }
