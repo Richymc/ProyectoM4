@@ -3,12 +3,14 @@ package org.bedu.APIStreaming.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.bedu.APIStreaming.dto.ActorDTO;
+import org.bedu.APIStreaming.dto.CreateActorDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.service.ActorService;
 import org.junit.jupiter.api.DisplayName;
@@ -57,6 +59,30 @@ class ActorControllerTest {
         assertEquals(actor.getId(), result.get(0).getId());
         assertEquals(actor.getFirstName(), result.get(0).getFirstName());
         assertEquals(actor.getLastName(), result.get(0).getLastName());
-        
+
+    }
+
+    @Test
+    @DisplayName("Controller should save an Actor")
+    void saveTest(){
+        CreateActorDTO dto = new CreateActorDTO();
+
+        dto.setFirstName("Johnny");
+        dto.setLastName("Depp");
+
+        ActorDTO actor = new ActorDTO();
+
+        actor.setId(34);
+        actor.setFirstName(dto.getFirstName());
+        actor.setLastName(dto.getLastName());
+
+        when(service.save(any(CreateActorDTO.class))).thenReturn(actor);
+
+        ActorDTO result = controller.save(dto);
+
+        assertNotNull(result);
+        assertEquals(actor.getId(), result.getId());
+        assertEquals(actor.getFirstName(), result.getFirstName());
+        assertEquals(actor.getLastName(), result.getLastName());
     }
 }
