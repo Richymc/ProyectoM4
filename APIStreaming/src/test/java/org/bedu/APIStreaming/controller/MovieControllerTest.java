@@ -117,7 +117,7 @@ class MovieControllerTest {
     @Test
     @DisplayName("Controller should delete a movie")
     void deleteByIdTest(){
-        controller.deleteById((long) 44);
-        verify(service, times(1)).deleteById((long) 44);
+        controller.deleteById(44l);
+        verify(service, times(1)).deleteById(44l);
     }
 }

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
@@ -85,4 +87,12 @@ class ActorControllerTest {
         assertEquals(actor.getFirstName(), result.getFirstName());
         assertEquals(actor.getLastName(), result.getLastName());
     }
-}
+
+    @Test
+    @DisplayName("Controller should update an actor")
+    void deleteByIdTest(){
+        controller.deleteById(35l);
+        verify(service, times(1)).deleteById(35l);
+    }
+
+}   
