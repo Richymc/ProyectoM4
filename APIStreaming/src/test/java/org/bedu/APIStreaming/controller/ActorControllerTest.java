@@ -1,7 +1,15 @@
 package org.bedu.APIStreaming.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bedu.APIStreaming.dto.ActorDTO;
+import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.service.ActorService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,5 +33,30 @@ class ActorControllerTest {
     @DisplayName("Controller should be injected")
     void smokeTest(){
         assertNotNull(controller);
+    }
+
+    @Test
+    @DisplayName("Controller should return a list of actors")
+    void findAllTest(){
+        List<ActorDTO> data = new LinkedList<>();
+
+        ActorDTO actor = new ActorDTO();
+
+        actor.setId(33);
+        actor.setFirstName("Leonardo");
+        actor.setLastName("DiCaprio");
+
+        data.add(actor);
+
+        when(service.findAll()).thenReturn(data);
+
+        List<ActorDTO> result = controller.findAll();
+
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
+        assertEquals(actor.getId(), result.get(0).getId());
+        assertEquals(actor.getFirstName(), result.get(0).getFirstName());
+        assertEquals(actor.getLastName(), result.get(0).getLastName());
+        
     }
 }
