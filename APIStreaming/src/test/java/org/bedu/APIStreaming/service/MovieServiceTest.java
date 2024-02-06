@@ -2,12 +2,16 @@ package org.bedu.APIStreaming.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
+import org.bedu.APIStreaming.dto.UpdateMovieDTO;
+import org.bedu.APIStreaming.exception.MovieNotFoundException;
 import org.bedu.APIStreaming.model.Movie;
 import org.bedu.APIStreaming.repository.MovieRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -17,8 +21,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Optional;
+
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -95,8 +102,33 @@ class MovieServiceTest {
         assertEquals(model.getDuration(), result.getDuration());
         assertEquals(model.getDescription(), result.getDescription());
         assertEquals(model.getGenre(), result.getGenre());
+    }
 
-        
+    @Test
+    @DisplayName("Service should throws an error if movie is not found")
+    void updateWithErrorTest(){
 
+        UpdateMovieDTO dto = new UpdateMovieDTO();
+        Optional<Movie> dummy = Optional.empty();
+
+        when(repository.findById(anyLong())).thenReturn(dummy);
+
+        assertThrows(MovieNotFoundException.class, () -> service.update(100,dto));
+    
+    }
+
+    @Test
+    @DisplayName("Service should update a movie in repository")
+    void updateTest(){
+
+        UpdateMovieDTO dto = new UpdateMovieDTO();
+        dto.setName("Leo");
+
+        Optional<Movie> dummy = Optional.empty();
+
+        when(repository.findById(anyLong())).thenReturn(dummy);
+
+        assertThrows(MovieNotFoundException.class, () -> service.update(100,dto));
+    
     }
 }
