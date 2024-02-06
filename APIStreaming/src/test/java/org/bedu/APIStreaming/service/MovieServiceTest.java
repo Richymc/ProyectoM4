@@ -3,8 +3,10 @@ package org.bedu.APIStreaming.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import org.bedu.APIStreaming.dto.CreateMovieDTO;
 import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.model.Movie;
 import org.bedu.APIStreaming.repository.MovieRepository;
@@ -61,6 +63,40 @@ class MovieServiceTest {
         assertEquals(movie.getDuration(), result.get(0).getDuration());
         assertEquals(movie.getDescription(), result.get(0).getDescription());
         assertEquals(movie.getGenre(), result.get(0).getGenre());
+
+    }
+
+    @Test
+    @DisplayName("Service should save a movie in repository")
+    void saveTest(){
+
+        CreateMovieDTO dto = new CreateMovieDTO();
+
+        dto.setName("Cars");
+        dto.setDuration(117);
+        dto.setDescription("De camino al prestigiado campeonato Copa Pistón, un automóvil de carreras que sólo se preocupa por ganar aprende sobre lo que realmente es importante en la vida de varios vehículos que viven en un pueblo a lo largo de la histórica Ruta 66.");
+        dto.setGenre("Comedia, Deportes");
+
+        Movie model = new Movie();
+
+        model.setId(111);
+        model.setName(dto.getName());
+        model.setDuration(dto.getDuration());
+        model.setDescription(dto.getDescription());
+        model.setGenre(dto.getGenre());
+
+        when(repository.save(any(Movie.class))).thenReturn(model);
+
+        MovieDTO result = service.save(dto);
+
+        assertNotNull(result);
+        assertEquals(model.getId(), result.getId());
+        assertEquals(model.getName(), result.getName());
+        assertEquals(model.getDuration(), result.getDuration());
+        assertEquals(model.getDescription(), result.getDescription());
+        assertEquals(model.getGenre(), result.getGenre());
+
+        
 
     }
 }
