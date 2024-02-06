@@ -21,6 +21,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -119,16 +121,37 @@ class MovieServiceTest {
 
     @Test
     @DisplayName("Service should update a movie in repository")
-    void updateTest(){
+    void updateTest() throws MovieNotFoundException{
 
         UpdateMovieDTO dto = new UpdateMovieDTO();
-        dto.setName("Leo");
+        dto.setName("Shrek");
+        dto.setDuration(90);
+        dto.setDescription("Un ogro llamado Shrek vive en su pantano, pero su preciada soledad se ve súbitamente interrumpida por la invasión de los ruidosos personajes de los cuentos de hadas. Todos fueron expulsados de sus reinos por el malvado Lord Farquaad. Decidido a salvar su hogar, Shrek hace un trato con Farquaad y se prepara para rescatar a la princesa Fiona, quien será la esposa de Farquaad.");
+        dto.setGenre("Comedia, Fantasia");
+        
+        Movie movie = new Movie();
 
-        Optional<Movie> dummy = Optional.empty();
+        movie.setId(35);
+        movie.setName("Chuek");
+        movie.setDuration(91);
+        movie.setDescription("Un ogro enojon de mascota un burro");
+        movie.setGenre("Comedia");
+        
+        when(repository.findById(anyLong())).thenReturn(Optional.of(movie));
 
-        when(repository.findById(anyLong())).thenReturn(dummy);
+        service.update(35, dto);
 
-        assertThrows(MovieNotFoundException.class, () -> service.update(100,dto));
-    
+        assertEquals(dto.getName(), movie.getName());
+        assertEquals(dto.getDuration(), movie.getDuration());
+        assertEquals(dto.getDescription(), movie.getDescription());
+        assertEquals(dto.getGenre(), movie.getGenre());
+
+        verify(repository, times(1)).save(movie);
+    }
+
+    @Test
+    @DisplayName("Service should delete a movie by id in repository")
+    void deleteByIdTest(){
+
     }
 }
