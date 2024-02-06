@@ -152,6 +152,9 @@ class MovieServiceTest {
     @Test
     @DisplayName("Service should delete a movie by id in repository")
     void deleteByIdTest(){
+        service.deleteById(333l);
 
+        verify(repository,times(1)).deleteById(333l);
+        
     }
 }
