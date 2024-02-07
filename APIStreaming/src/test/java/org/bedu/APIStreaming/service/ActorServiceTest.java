@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
@@ -83,5 +85,12 @@ public class ActorServiceTest {
         assertEquals(model.getId(), result.getId());
         assertEquals(model.getFirstName(), result.getFirstName());
         assertEquals(model.getLastName(), result.getLastName());
+    }
+
+    @Test
+    @DisplayName("Service should delete an actor by id in repository")
+    void deleteByIdTest(){
+        service.deleteById(66l);
+        verify(repository,times(1)).deleteById(66l);
     }
 }
