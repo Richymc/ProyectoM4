@@ -1,6 +1,5 @@
 package org.bedu.controller;
 
-import org.bedu.dto.CreateActorDTO;
 import org.bedu.dto.CreateDirectorDTO;
 import org.bedu.dto.DirectorDTO;
 import org.bedu.service.DirectorService;
