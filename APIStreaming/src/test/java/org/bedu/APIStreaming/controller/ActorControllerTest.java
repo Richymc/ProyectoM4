@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.bedu.APIStreaming.dto.ActorDTO;
 import org.bedu.APIStreaming.dto.CreateActorDTO;
-import org.bedu.APIStreaming.dto.MovieDTO;
 import org.bedu.APIStreaming.service.ActorService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
