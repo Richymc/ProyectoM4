@@ -1,11 +1,8 @@
 package org.bedu.service;
 
 import org.bedu.dto.CreateDirectorDTO;
-import org.bedu.dto.CreateUserDTO;
 import org.bedu.dto.DirectorDTO;
-import org.bedu.dto.UserDTO;
 import org.bedu.model.Director;
-import org.bedu.model.User;
 import org.bedu.repository.DirectorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -78,5 +75,11 @@ public class DirectorServiceTest {
         assertEquals(director.getLastName(), result.getLastName());
     }
 
+    @Test
+    @DisplayName("DirectorService should delete a director by id in repository")
+    void deleteByIdTest(){
+        service.deleteById(43l);
+        verify(repository,times(1)).deleteById(43l);
+    }
 
 }
