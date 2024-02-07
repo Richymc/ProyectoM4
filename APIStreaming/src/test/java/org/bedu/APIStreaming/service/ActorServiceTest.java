@@ -1,7 +1,15 @@
 package org.bedu.APIStreaming.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.bedu.APIStreaming.dto.ActorDTO;
+import org.bedu.APIStreaming.model.Actor;
 import org.bedu.APIStreaming.repository.ActorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +33,30 @@ public class ActorServiceTest {
     @DisplayName("Service should be injected")
     void smokeTest(){
         assertNotNull(service);
+    }
+
+    @Test
+    @DisplayName("Service should return actors from repository")
+    void findAll(){
+        List<Actor> data = new LinkedList();
+
+        Actor actor = new Actor();
+
+        actor.setId(40);
+        actor.setFirstName("Bred");
+        actor.setLastName("Pitt");
+
+        data.add(actor);
+
+        when(repository.findAll()).thenReturn(data);
+
+        List<ActorDTO> result = service.findAll();
+
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
+        assertEquals(actor.getId(), result.get(0).getId());
+        assertEquals(actor.getFirstName(), result.get(0).getFirstName());
+        assertEquals(actor.getLastName(), result.get(0).getLastName());
     }
     
 }
