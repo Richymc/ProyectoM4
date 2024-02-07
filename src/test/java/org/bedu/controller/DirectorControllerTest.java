@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,4 +53,10 @@ public class DirectorControllerTest {
         assertEquals(director.getLastName(), result.get(0).getLastName());
     }
 
+    @Test
+    @DisplayName("DirectorController should delete a director")
+    void deleteTest(){
+        controller.delete(20l);
+        verify(service, times(1)).deleteById(20l);
+    }
 }
