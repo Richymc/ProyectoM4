@@ -1,9 +1,14 @@
 package org.bedu.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.bedu.dto.ActorDTO;
+import org.bedu.dto.MovieDTO;
+import org.bedu.model.Actor;
 import org.bedu.repository.ActorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +23,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @AutoConfigureMockMvc
@@ -52,4 +60,37 @@ class ActorControllerE2ETest {
 
         assertEquals("[]", content);
     }
+
+    //Regresa lista de actores
+    @Test
+    @DisplayName("GET /actors should return a list of actors")
+    void findAllTest() throws Exception{
+        Actor actor1 = new Actor();
+        Actor actor2 = new Actor();
+
+        actor1.setFirstName("Leonardo");
+        actor1.setLastName("DiCaprio");
+
+        actor2.setFirstName("Angelina");
+        actor2.setLastName("Jolie");
+
+        repository.save(actor1);
+        repository.save(actor2);
+
+        MvcResult result = mockMvc.perform(get("/actors"))
+        .andExpect(status().isOk())
+        .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        TypeReference<List<ActorDTO>> listTypeReference = new TypeReference<List<ActorDTO>>(){};
+    
+        List<ActorDTO> response = mapper.readValue(content, listTypeReference);
+        
+        assertTrue(response.size() == 2);
+        assertEquals(actor1.getFirstName(), response.get(0).getFirstName());
+        assertEquals(actor2.getLastName(), response.get(1).getLastName());
+    
+    }
+        
 }
