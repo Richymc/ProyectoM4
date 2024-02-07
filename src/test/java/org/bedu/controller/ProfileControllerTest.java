@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -50,4 +50,10 @@ public class ProfileControllerTest {
         assertEquals(profile.getName(), result.get(0).getName());
     }
 
+    @Test
+    @DisplayName("ProfileController should delete a profile")
+    void deleteTest(){
+        controller.deleteById(20l);
+        verify(service, times(1)).deleteById(20l);
+    }
 }
