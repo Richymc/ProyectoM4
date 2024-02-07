@@ -121,4 +121,18 @@ class MovieControllerE2ETest {
         String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingresar el nombre de la pelicula\"]}";
         assertEquals(expectedResponse, content);
     }
+
+    //duration missing
+    @Test
+    @DisplayName("POST /movies should return an error if duration is missing")
+    void durationMissingInRequestBodyTest() throws Exception{
+        MvcResult result = mockMvc.perform(post("/movies").contentType("application/json").content("{\"genre\":\"Animacion\",\"name\":\"LEO\",\"description\":\"Es una pelicula de un lagarto que piensa que se va a morir\"}"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"must be greater than 0\"]}";
+        assertEquals(expectedResponse, content);
+    }
 }
