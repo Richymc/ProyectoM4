@@ -3,12 +3,14 @@ package org.bedu.APIStreaming.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.bedu.APIStreaming.dto.ActorDTO;
+import org.bedu.APIStreaming.dto.CreateActorDTO;
 import org.bedu.APIStreaming.model.Actor;
 import org.bedu.APIStreaming.repository.ActorRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -59,4 +61,27 @@ public class ActorServiceTest {
         assertEquals(actor.getLastName(), result.get(0).getLastName());
     }
     
+    @Test
+    @DisplayName("Service should save an actor in repository")
+    void saveTest(){
+        CreateActorDTO dto = new CreateActorDTO();
+
+        dto.setFirstName("Denzel");
+        dto.setLastName("Washington");
+
+        Actor model = new Actor();
+
+        model.setId(55);
+        model.setFirstName(dto.getFirstName());
+        model.setLastName(dto.getLastName());
+
+        when(repository.save(any(Actor.class))).thenReturn(model);
+
+        ActorDTO result = service.save(dto);
+
+        assertNotNull(result);
+        assertEquals(model.getId(), result.getId());
+        assertEquals(model.getFirstName(), result.getFirstName());
+        assertEquals(model.getLastName(), result.getLastName());
+    }
 }
