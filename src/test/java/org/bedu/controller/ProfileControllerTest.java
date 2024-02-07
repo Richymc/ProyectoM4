@@ -1,5 +1,8 @@
 package org.bedu.controller;
 
+import org.bedu.dto.CreateDirectorDTO;
+import org.bedu.dto.CreateProfileDTO;
+import org.bedu.dto.DirectorDTO;
 import org.bedu.dto.ProfileDTO;
 import org.bedu.service.ProfileService;
 import org.junit.jupiter.api.DisplayName;
@@ -48,6 +51,20 @@ public class ProfileControllerTest {
         assertTrue(result.size() > 0);
         assertEquals(profile.getId(), result.get(0).getId());
         assertEquals(profile.getName(), result.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("ProfileController should save a profile")
+    void saveTest(){
+        CreateProfileDTO profileDTO = new CreateProfileDTO();
+        profileDTO.setName("Rafaela");
+
+        when(service.save(any(CreateProfileDTO.class))).thenReturn(new ProfileDTO());
+        ProfileDTO dto = service.save(profileDTO);
+        ProfileDTO savedProfile = controller.save(profileDTO);
+
+        assertNotNull(savedProfile);
+        assertEquals(dto.getName(), savedProfile.getName());
     }
 
     @Test
