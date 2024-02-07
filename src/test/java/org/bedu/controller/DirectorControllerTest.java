@@ -1,5 +1,7 @@
 package org.bedu.controller;
 
+import org.bedu.dto.CreateActorDTO;
+import org.bedu.dto.CreateDirectorDTO;
 import org.bedu.dto.DirectorDTO;
 import org.bedu.service.DirectorService;
 import org.junit.jupiter.api.DisplayName;
@@ -51,6 +53,22 @@ public class DirectorControllerTest {
         assertEquals(director.getId(), result.get(0).getId());
         assertEquals(director.getFirstName(), result.get(0).getFirstName());
         assertEquals(director.getLastName(), result.get(0).getLastName());
+    }
+
+    @Test
+    @DisplayName("DirectorController should save a director")
+    void saveTest(){
+        CreateDirectorDTO directorDTO = new CreateDirectorDTO();
+        directorDTO.setFirstName("Woody");
+        directorDTO.setLastName("Allen");
+
+        when(service.save(any(CreateDirectorDTO.class))).thenReturn(new DirectorDTO());
+        DirectorDTO dto = service.save(directorDTO);
+        DirectorDTO savedDirector = controller.save(directorDTO);
+
+        assertNotNull(savedDirector);
+        assertEquals(dto.getFirstName(), savedDirector.getFirstName());
+        assertEquals(dto.getLastName(), savedDirector.getLastName());
     }
 
     @Test
