@@ -12,10 +12,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.bedu.dto.MovieDTO;
+import org.bedu.model.Movie;
+import org.bedu.repository.MovieRepository;
+
+import java.util.List;
 
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @AutoConfigureMockMvc
@@ -25,6 +36,11 @@ class MovieControllerE2ETest {
     
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private MovieRepository repository;
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     //Peticion tipo GET
     @Test
@@ -41,6 +57,43 @@ class MovieControllerE2ETest {
         assertEquals("[]", content);
     }
 
+    /**
+     * @throws Exception
+     */
+    @Test
+    @DisplayName("GET /movies should return a list of movies")
+    void findAllTest() throws Exception{
+        Movie movie1 = new Movie();
+        Movie movie2 = new Movie();
+
+        movie1.setName("Elementos");
+        movie1.setDuration(120);
+        movie1.setDescription("Elementos que se enamoran");
+        movie1.setGenre("Animacion");
+
+        movie2.setName("Interestelar");
+        movie2.setDuration(121);
+        movie2.setDescription("Un grupo de cientificos viajan al espacio");
+        movie2.setGenre("Ciencia Ficcion");
+
+        repository.save(movie1);
+        repository.save(movie2);
+
+        MvcResult result = mockMvc.perform(get("/movies"))
+        .andExpect(status().isOk())
+        .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        TypeReference<List<MovieDTO>> listTypeReference = new TypeReference<List<MovieDTO>>() {};
+
+        List<MovieDTO> response = mapper.readValue(content, listTypeReference);
+
+        assertTrue(response.size() == 2);
+        assertEquals(movie1.getName(), response.get(0).getName());
+        assertEquals(movie2.getName(), response.get(1).getName());
+    }
+
     //Genre mising
     @Test
     @DisplayName("POST /movies should return an error if title is genre is missing")
@@ -54,4 +107,6 @@ class MovieControllerE2ETest {
         String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingrese un genero de pelicula\"]}";
         assertEquals(expectedResponse, content);
     }
+
+    //title missing
 }
