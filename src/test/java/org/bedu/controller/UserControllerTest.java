@@ -1,5 +1,6 @@
 package org.bedu.controller;
 
+import org.bedu.dto.CreateUserDTO;
 import org.bedu.dto.UserDTO;
 import org.bedu.service.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -51,6 +52,22 @@ public class UserControllerTest {
         assertEquals(user.getId(), result.get(0).getId());
         assertEquals(user.getFirstName(), result.get(0).getFirstName());
         assertEquals(user.getLastName(), result.get(0).getLastName());
+    }
+
+    @Test
+    @DisplayName("UserController should save a user")
+    void saveTest(){
+        CreateUserDTO userDTO = new CreateUserDTO();
+        userDTO.setFirstName("Raul");
+        userDTO.setLastName("Hernandez");
+
+        when(service.save(any(CreateUserDTO.class))).thenReturn(new UserDTO());
+        UserDTO dto = service.save(userDTO);
+        UserDTO savedUser = controller.save(userDTO);
+
+        assertNotNull(savedUser);
+        assertEquals(dto.getFirstName(), savedUser.getFirstName());
+        assertEquals(dto.getLastName(), savedUser.getLastName());
     }
 
     @Test
