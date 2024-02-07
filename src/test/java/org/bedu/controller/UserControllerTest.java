@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -51,6 +51,13 @@ public class UserControllerTest {
         assertEquals(user.getId(), result.get(0).getId());
         assertEquals(user.getFirstName(), result.get(0).getFirstName());
         assertEquals(user.getLastName(), result.get(0).getLastName());
+    }
+
+    @Test
+    @DisplayName("UserController should delete a user")
+    void deleteTest(){
+        controller.delete(20l);
+        verify(service, times(1)).deleteById(20l);
     }
 
 }
