@@ -1,10 +1,7 @@
 package org.bedu.service;
 
-import org.bedu.dto.CreateDirectorDTO;
 import org.bedu.dto.CreateProfileDTO;
-import org.bedu.dto.DirectorDTO;
 import org.bedu.dto.ProfileDTO;
-import org.bedu.model.Director;
 import org.bedu.model.Profile;
 import org.bedu.repository.ProfileRepository;
 import org.junit.jupiter.api.DisplayName;
