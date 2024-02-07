@@ -1,4 +1,4 @@
-package org.bedu.APIStreaming.controller;
+package org.bedu.APIStreaming.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,7 +13,8 @@ import java.util.List;
 
 import org.bedu.APIStreaming.dto.ActorDTO;
 import org.bedu.APIStreaming.dto.CreateActorDTO;
-import org.bedu.APIStreaming.service.ActorService;
+import org.bedu.APIStreaming.model.Actor;
+import org.bedu.APIStreaming.repository.ActorRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,74 +25,72 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-class ActorControllerTest {
+public class ActorServiceTest {
 
     @MockBean
-    private ActorService service;
+    private ActorRepository repository;
 
     @Autowired
-    private ActorController controller;
+    private ActorService service;
 
     @Test
-    @DisplayName("Controller should be injected")
+    @DisplayName("Service should be injected")
     void smokeTest(){
-        assertNotNull(controller);
+        assertNotNull(service);
     }
 
     @Test
-    @DisplayName("Controller should return a list of actors")
-    void findAllTest(){
-        List<ActorDTO> data = new LinkedList<>();
+    @DisplayName("Service should return actors from repository")
+    void findAll(){
+        List<Actor> data = new LinkedList();
 
-        ActorDTO actor = new ActorDTO();
+        Actor actor = new Actor();
 
-        actor.setId(33);
-        actor.setFirstName("Leonardo");
-        actor.setLastName("DiCaprio");
+        actor.setId(40);
+        actor.setFirstName("Bred");
+        actor.setLastName("Pitt");
 
         data.add(actor);
 
-        when(service.findAll()).thenReturn(data);
+        when(repository.findAll()).thenReturn(data);
 
-        List<ActorDTO> result = controller.findAll();
+        List<ActorDTO> result = service.findAll();
 
         assertNotNull(result);
         assertTrue(result.size() > 0);
         assertEquals(actor.getId(), result.get(0).getId());
         assertEquals(actor.getFirstName(), result.get(0).getFirstName());
         assertEquals(actor.getLastName(), result.get(0).getLastName());
-
     }
-
+    
     @Test
-    @DisplayName("Controller should save an Actor")
+    @DisplayName("Service should save an actor in repository")
     void saveTest(){
         CreateActorDTO dto = new CreateActorDTO();
 
-        dto.setFirstName("Johnny");
-        dto.setLastName("Depp");
+        dto.setFirstName("Denzel");
+        dto.setLastName("Washington");
 
-        ActorDTO actor = new ActorDTO();
+        Actor model = new Actor();
 
-        actor.setId(34);
-        actor.setFirstName(dto.getFirstName());
-        actor.setLastName(dto.getLastName());
+        model.setId(55);
+        model.setFirstName(dto.getFirstName());
+        model.setLastName(dto.getLastName());
 
-        when(service.save(any(CreateActorDTO.class))).thenReturn(actor);
+        when(repository.save(any(Actor.class))).thenReturn(model);
 
-        ActorDTO result = controller.save(dto);
+        ActorDTO result = service.save(dto);
 
         assertNotNull(result);
-        assertEquals(actor.getId(), result.getId());
-        assertEquals(actor.getFirstName(), result.getFirstName());
-        assertEquals(actor.getLastName(), result.getLastName());
+        assertEquals(model.getId(), result.getId());
+        assertEquals(model.getFirstName(), result.getFirstName());
+        assertEquals(model.getLastName(), result.getLastName());
     }
 
     @Test
-    @DisplayName("Controller should update an actor")
+    @DisplayName("Service should delete an actor by id in repository")
     void deleteByIdTest(){
-        controller.deleteById(35l);
-        verify(service, times(1)).deleteById(35l);
+        service.deleteById(66l);
+        verify(repository,times(1)).deleteById(66l);
     }
-
-}   
+}
