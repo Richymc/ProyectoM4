@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -49,6 +49,13 @@ public class ProfileServiceTest {
         assertTrue(result.size() > 0);
         assertEquals(profile.getId(), result.get(0).getId());
         assertEquals(profile.getName(), result.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("ProfileService should delete a profile by id in repository")
+    void deleteByIdTest(){
+        service.deleteById(43l);
+        verify(repository,times(1)).deleteById(43l);
     }
 
 }
