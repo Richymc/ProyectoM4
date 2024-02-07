@@ -1,6 +1,10 @@
 package org.bedu.service;
 
+import org.bedu.dto.CreateDirectorDTO;
+import org.bedu.dto.CreateProfileDTO;
+import org.bedu.dto.DirectorDTO;
 import org.bedu.dto.ProfileDTO;
+import org.bedu.model.Director;
 import org.bedu.model.Profile;
 import org.bedu.repository.ProfileRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -49,6 +53,23 @@ public class ProfileServiceTest {
         assertTrue(result.size() > 0);
         assertEquals(profile.getId(), result.get(0).getId());
         assertEquals(profile.getName(), result.get(0).getName());
+    }
+
+    @Test
+    @DisplayName("ProfileService should save a profile in repository")
+    void saveTest(){
+        Profile data = new Profile();
+        data.setName("Alfonsina");
+
+        when(repository.save(any(Profile.class))).thenReturn(new Profile());
+        Profile profile = repository.save(data);
+
+        CreateProfileDTO profileDTO = new CreateProfileDTO();
+        profileDTO.setName("Alfonsina");
+        ProfileDTO savedProfile = service.save(profileDTO);
+
+        assertNotNull(savedProfile);
+        assertEquals(profile.getName(), savedProfile.getName());
     }
 
     @Test
