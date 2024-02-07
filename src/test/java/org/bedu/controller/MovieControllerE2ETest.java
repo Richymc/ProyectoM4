@@ -62,7 +62,7 @@ class MovieControllerE2ETest {
         assertEquals("[]", content);
     }
 
-    
+    //Regresa lista de peliculas
     @Test
     @DisplayName("GET /movies should return a list of movies")
     void findAllTest() throws Exception{
@@ -137,6 +137,21 @@ class MovieControllerE2ETest {
         String content = result.getResponse().getContentAsString();
 
         String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"must be greater than 0\"]}";
+        assertEquals(expectedResponse, content);
+    }
+
+    //description missing
+    //name missing
+    @Test
+    @DisplayName("POST /movies should return an error if description is missing")
+    void descriptionMissingInRequestBodyTest() throws Exception{
+        MvcResult result = mockMvc.perform(post("/movies").contentType("application/json").content("{\"genre\":\"Animacion\",\"duration\":120,\"name\":\"LEO\"}"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingrese una descripcion de la pelicula\"]}";
         assertEquals(expectedResponse, content);
     }
 }
