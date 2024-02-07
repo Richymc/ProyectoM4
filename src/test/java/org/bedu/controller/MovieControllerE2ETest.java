@@ -1,5 +1,6 @@
 package org.bedu.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,11 +43,15 @@ class MovieControllerE2ETest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
+    @BeforeEach
+    public void setup() {
+    repository.deleteAll();
+    }
+
     //Peticion tipo GET
     @Test
     @DisplayName("GET / movies should return an empty list")
     void emptyListTest() throws Exception{
-
 
         MvcResult result = mockMvc.perform(get("/movies"))
             .andExpect(status().isOk())
@@ -57,9 +62,7 @@ class MovieControllerE2ETest {
         assertEquals("[]", content);
     }
 
-    /**
-     * @throws Exception
-     */
+    
     @Test
     @DisplayName("GET /movies should return a list of movies")
     void findAllTest() throws Exception{
@@ -75,6 +78,7 @@ class MovieControllerE2ETest {
         movie2.setDuration(121);
         movie2.setDescription("Un grupo de cientificos viajan al espacio");
         movie2.setGenre("Ciencia Ficcion");
+        
 
         repository.save(movie1);
         repository.save(movie2);
@@ -88,7 +92,7 @@ class MovieControllerE2ETest {
         TypeReference<List<MovieDTO>> listTypeReference = new TypeReference<List<MovieDTO>>() {};
 
         List<MovieDTO> response = mapper.readValue(content, listTypeReference);
-
+        
         assertTrue(response.size() == 2);
         assertEquals(movie1.getName(), response.get(0).getName());
         assertEquals(movie2.getName(), response.get(1).getName());
