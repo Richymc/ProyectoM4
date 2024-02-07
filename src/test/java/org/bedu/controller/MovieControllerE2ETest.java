@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -32,12 +33,25 @@ class MovieControllerE2ETest {
 
 
         MvcResult result = mockMvc.perform(get("/movies"))
-        .andExpect(status().isOk())
-        .andReturn();
+            .andExpect(status().isOk())
+            .andReturn();
 
         String content = result.getResponse().getContentAsString();
 
         assertEquals("[]", content);
     }
 
+    //Genre mising
+    @Test
+    @DisplayName("POST /movies should return an error if title is genre is missing")
+    void genreMissingInRequestBodyTest() throws Exception{
+        MvcResult result = mockMvc.perform(post("/movies").contentType("application/json").content("{\"name\":\"LEO\",\"duration\":120,\"description\":\"Es una pelicula de un lagarto que piensa que se va a morir\"}"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingrese un genero de pelicula\"]}";
+        assertEquals(expectedResponse, content);
+    }
 }
