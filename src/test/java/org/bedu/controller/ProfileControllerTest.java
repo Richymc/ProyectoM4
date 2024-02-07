@@ -1,8 +1,6 @@
 package org.bedu.controller;
 
-import org.bedu.dto.CreateDirectorDTO;
 import org.bedu.dto.CreateProfileDTO;
-import org.bedu.dto.DirectorDTO;
 import org.bedu.dto.ProfileDTO;
 import org.bedu.service.ProfileService;
 import org.junit.jupiter.api.DisplayName;
