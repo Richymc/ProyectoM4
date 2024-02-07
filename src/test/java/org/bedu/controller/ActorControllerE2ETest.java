@@ -3,11 +3,10 @@ package org.bedu.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.bedu.dto.ActorDTO;
-import org.bedu.dto.MovieDTO;
 import org.bedu.model.Actor;
 import org.bedu.repository.ActorRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,5 +91,36 @@ class ActorControllerE2ETest {
         assertEquals(actor2.getLastName(), response.get(1).getLastName());
     
     }
-        
+    
+    //First Name missing
+    @Test
+    @DisplayName("POST / actors should return an error if FirstName is missing")
+    void firstNameMissingInRequestbodyTest() throws Exception{
+
+        MvcResult result = mockMvc.perform(post("/actors").contentType("application/json").content("{\"lastName\":\"Stone\"}"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+            
+        String content = result.getResponse().getContentAsString();
+
+        String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingresar el nombre del actor\"]}";
+        assertEquals(expectedResponse, content);
+
+    }
+
+    //Last Name missing
+    @Test
+    @DisplayName("POST / actors should return an error if LastName is missing")
+    void lastNameMissingInRequestbodyTest() throws Exception{
+
+        MvcResult result = mockMvc.perform(post("/actors").contentType("application/json").content("{\"firstName\":\"Emma\"}"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+            
+        String content = result.getResponse().getContentAsString();
+
+        String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingresar el apellido del actor\"]}";
+        assertEquals(expectedResponse, content);
+
+    }
 }
