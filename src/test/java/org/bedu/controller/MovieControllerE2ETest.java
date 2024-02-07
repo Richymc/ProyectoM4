@@ -96,7 +96,7 @@ class MovieControllerE2ETest {
 
     //Genre mising
     @Test
-    @DisplayName("POST /movies should return an error if title is genre is missing")
+    @DisplayName("POST /movies should return an error if genre is missing")
     void genreMissingInRequestBodyTest() throws Exception{
         MvcResult result = mockMvc.perform(post("/movies").contentType("application/json").content("{\"name\":\"LEO\",\"duration\":120,\"description\":\"Es una pelicula de un lagarto que piensa que se va a morir\"}"))
             .andExpect(status().isBadRequest())
@@ -108,5 +108,17 @@ class MovieControllerE2ETest {
         assertEquals(expectedResponse, content);
     }
 
-    //title missing
+    //name missing
+    @Test
+    @DisplayName("POST /movies should return an error if name is missing")
+    void nameMissingInRequestBodyTest() throws Exception{
+        MvcResult result = mockMvc.perform(post("/movies").contentType("application/json").content("{\"genre\":\"Animacion\",\"duration\":120,\"description\":\"Es una pelicula de un lagarto que piensa que se va a morir\"}"))
+            .andExpect(status().isBadRequest())
+            .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+
+        String expectedResponse = "{\"code\":\"ERR_VALID\",\"message\":\"Los datos de entrada contiene errores\",\"details\":[\"Por favor ingresar el nombre de la pelicula\"]}";
+        assertEquals(expectedResponse, content);
+    }
 }
