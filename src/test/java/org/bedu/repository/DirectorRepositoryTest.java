@@ -14,5 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class DirectorRepositoryTest {
 
+    @Autowired
+    private DirectorRepository repository;
 
+    @Test
+    @DisplayName("DirectorRepository should be injected")
+    void smokeTest(){
+        assertNotNull(repository);
+    }
 }
